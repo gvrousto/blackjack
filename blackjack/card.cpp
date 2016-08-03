@@ -11,7 +11,11 @@
  */
 
 Card::Card(rank r, suit s, bool ifu)
-{} 
+{
+	this->m_Rank = r;
+	this->m_Suit = s;
+	this->m_IsFaceUp = ifu;
+} 
 
 /*
  * Return the blackjack numerical value of a card
@@ -27,7 +31,14 @@ Card::Card(rank r, suit s, bool ifu)
  */
 int Card::GetValue() const
 {
-    return 0;
+	if(m_IsFaceUp == false){
+		return 0;
+	}
+	int value = m_Rank;
+	if(value > 10){
+		value = 10;
+	}
+	return value;
 }
 
 /*
@@ -39,7 +50,12 @@ int Card::GetValue() const
  *  Returns: None
  */
 void Card::Flip()
-{}
+{
+	if(m_IsFaceUp == true){
+		m_IsFaceUp = false;
+	}
+	m_IsFaceUp = true;
+}
 
 
 /*
