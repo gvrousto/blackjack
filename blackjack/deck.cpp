@@ -7,7 +7,10 @@
  * Parameters: None
  */
 Deck::Deck()
-{}
+{
+	m_Cards.reserve(52);
+	Populate();
+}
 
 /*
  * Destructor for the Deck. Don't forget the destructor for Hand will be called after this.
@@ -24,7 +27,12 @@ Deck::~Deck()
  * Returns: None
  */
 void Deck::Populate()
-{}
+{
+	Clear();
+	for(int s = Card::CLUBS; s <=Card::SPADES;++s){
+		for(int)
+	}
+}	
 
 /*
  * Shuffles all of the cards in the deck

@@ -42,7 +42,7 @@ void Hand::Clear()
 {
 	std::vector<Card*>::iterator iter = m_Cards.begin();
 	for(iter = m_Cards.begin(); iter != m_Cards.end(); ++iter){
-		delete iter*;
+		delete *iter;
 		*iter = 0;
 	}
 	m_Cards.clear();
@@ -61,15 +61,15 @@ void Hand::Clear()
  */
 int Hand::GetTotal() const
 {
-	if(m_Cards.size == 0){
+	if(m_Cards.size() == 0){
 		return 0;
 	}
 	//if first card is face down
-	if(m_Cards->GetValue() == 0){
+	if(m_Cards[0]->GetValue() == 0){
 		return 0;
 	}
-	int total;
-	std::vector<*Cards>::iterator iter;
+	int total = 0;
+	std::vector<Card*>::const_iterator iter;
 	for(iter = m_Cards.begin(); iter != m_Cards.end(); ++iter){
 		total += (*iter)->GetValue();
 	}
