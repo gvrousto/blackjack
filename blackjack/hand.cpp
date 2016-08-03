@@ -4,7 +4,9 @@
  * Constructor for the Hand class
  */
 Hand::Hand()
-{}
+{
+	m_Cards.reserve(7);
+}
 
 /*
  * Destructor for the Hand class.
@@ -12,7 +14,9 @@ Hand::Hand()
  * REMEMBER every class that inherits from Hand will call this method
  */
 Hand::~Hand()  
-{}
+{
+	Clear();
+}
 
 /*
  * Add a card to your hand
@@ -21,7 +25,11 @@ Hand::~Hand()
  * Returns: None
  */
 void Hand::Add(Card* pCard)
-{}
+{
+	if(pCard != nullptr){
+		m_Cards.push_back(pCard);
+	}
+}
  
 /*
  * Cleans up all of the cards in our Hand.
@@ -31,7 +39,14 @@ void Hand::Add(Card* pCard)
  * Returns: None
  */
 void Hand::Clear()
-{}
+{
+	std::vector<Card*>::iterator iter = m_Cards.begin();
+	for(iter = m_Cards.begin(); iter != m_Cards.end(); ++iter){
+		delete iter*;
+		*iter = 0;
+	}
+	m_Cards.clear();
+}
 
 /*
  * Get the total points for our hand. Add up the points for each card
@@ -46,5 +61,27 @@ void Hand::Clear()
  */
 int Hand::GetTotal() const
 {
-    return 0;
+	if(m_Cards.size == 0){
+		return 0;
+	}
+	//if first card is face down
+	if(m_Cards->GetValue() == 0){
+		return 0;
+	}
+	int total;
+	std::vector<*Cards>::iterator iter;
+	for(iter = m_Cards.begin(); iter != m_Cards.end(); ++iter){
+		total += (*iter)->GetValue();
+	}
+
+	bool containsAce = false;
+	for(iter - m_Cards.begin(); iter != m_Cards.end(); ++iter){
+		if((*iter)->GetValue() == Card::ACE){
+			containsAce = true;
+		}
+	}
+	if(containsAce && total <= 11){
+		total += 10;
+	}
+	return total;
 }
