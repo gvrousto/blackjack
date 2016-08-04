@@ -30,8 +30,10 @@ void Deck::Populate()
 {
 	Clear();
 	for(int s = Card::CLUBS; s <=Card::SPADES;++s){
-		for(int)
-	}
+		for(int r = Card::ACE; r <= Card::KING; ++r){
+			Add(new Card(static_cast<Card::rank>(r), static_cast<Card::suit>(s)));
+		}
+	 }
 }	
 
 /*
@@ -42,7 +44,9 @@ void Deck::Populate()
  * Returns: None
  */
 void Deck::Shuffle()
-{}
+{
+	random_shuffle(m_Cards.begin(),m_Cards.end());
+}
 
 /*
  * Deal one card from the deck to a Hand. If the deck has no cards remaining print out
@@ -52,7 +56,15 @@ void Deck::Shuffle()
  * Returns: None
  */
 void Deck::Deal(Hand& aHand)
-{}
+{
+	if(!m_Cards.empty()){
+		aHand.Add(m_Cards.back());
+		m_Cards.pop_back();
+	}else{
+		std::cout << "Out of cards. Unable to deal.";
+	}
+	
+}
 
 
 /*
@@ -69,4 +81,13 @@ void Deck::Deal(Hand& aHand)
  * Returns: None
  */
 void Deck::AdditionalCards(GenericPlayer& aGenericPlayer)
-{} 
+{
+	std::cout << std::endl;
+	while(!(aGenericPlayer.IsBusted()) && aGenericPlayer.IsHitting()){
+		Deal(aGenericPlayer);
+		std::cout << aGenericPlayer << std::endl;
+		if(aGenericPlayer.IsBusted()){
+			aGenericPlayer.Bust();
+		}
+	}
+} 
