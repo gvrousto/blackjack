@@ -6,7 +6,9 @@
  * Parameters: A reference to a std::string
  */
 GenericPlayer::GenericPlayer(const std::string& name)
-{}
+{
+	m_Name = name;	
+}
 
 /*
  * Destructor for a Generic Player
@@ -24,7 +26,7 @@ GenericPlayer::~GenericPlayer()
  */
 bool GenericPlayer::IsBusted() const
 {
-    return false;
+    return (GetTotal() > 21);
 }
 
 /*
@@ -35,7 +37,9 @@ bool GenericPlayer::IsBusted() const
  * Returns: None
  */
 void GenericPlayer::Bust() const
-{}
+{
+	std::cout << m_Name << "busts." << std::endl;
+}
 
 
 /*
@@ -56,5 +60,18 @@ void GenericPlayer::Bust() const
  */
 std::ostream& operator<<(std::ostream& os, const GenericPlayer& aGenericPlayer)
 {
-    return os;
+	os << aGenericPlayer.m_Name << ":\t";
+	if(aGenericPlayer.m_Cards.empty()){
+		os << "<empty>";
+	}
+	else{
+		std::vector<Card*>::const_iterator p;
+		for(p = aGenericPlayer.m_Cards.begin(); p != aGenericPlayer.m_Cards.end(); ++p){
+			os << *(*p) << "\t";
+		}
+		if(aGenericPlayer.GetTotal() != 0){
+			std::cout << "(" << aGenericPlayer.GetTotal() << ")";
+		}
+	}
+	return os;
 }
